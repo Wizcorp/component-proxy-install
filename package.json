@@ -16,7 +16,6 @@
     "component",
     "install"
   ],
-  "main": "lib/index.js",
   "author": "Reuven V. Gonzales <reuven@virtru.com>",
   "preferGlobal": true,
   "bin": {

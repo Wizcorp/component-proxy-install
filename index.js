@@ -3,21 +3,37 @@ var crypto = require('crypto'),
 	express = require('express'),
 	fs = require('fs'),
 	mime = require('mime'),
+	ensureDir = require('mkdirp').sync,
 	os = require('os'),
 	path = require('path'),
 	rimraf = require('rimraf'),
-	util = require('util'),
-	utils = require('./utils');
+	util = require('util');
 
 var CLONE_COMMAND = 'git clone git@github.com:%s/%s.git';
-var UPDATE_COMMAND = 'git pull origin %s';
 var CHECKOUT_COMMAND = 'git checkout %s';
+
+var exists = fs.existsSync;
+
+function isDir(path) {
+	if(!exists(path)) {
+		return false;
+	}
+	return fs.statSync(path).isDirectory();
+}
+
+function isFile(path) {
+	if(!exists(path)) {
+		return false;
+	}
+	return fs.statSync(path).isFile();
+}
 
 function newId() {
 	return crypto.randomBytes(8).toString('hex');
 }
 
-var componentsPath = path.resolve(os.tmpdir(), newId());
+var tmpDir = (typeof os.tmpdir === 'function') ? os.tmpdir() : os.tmpDir();
+var componentsPath = path.resolve(tmpDir, newId());
 
 /**
  * Clone the repository
@@ -33,21 +49,6 @@ function cloneRepo(userDir, user, repo, tree, callback) {
 				notFound.name = 'NotFound';
 				return callback(notFound);
 			}
-			return callback(err);
-		}
-		checkoutRepoTree(userDir, user, repo, tree, callback);
-	});
-}
-
-/**
- * Update the repository
- */
-function updateRepo(userDir, user, repo, tree, callback) {
-	console.log('    updating : %s/%s', user, repo);
-	var command = util.format(UPDATE_COMMAND, tree);
-	var repoDir = path.resolve(userDir, repo);
-	exec(command, { cwd: repoDir }, function(err, stdout, stderr) {
-		if(err) {
 			return callback(err);
 		}
 		checkoutRepoTree(userDir, user, repo, tree, callback);
@@ -77,7 +78,7 @@ function checkoutRepoTree(userDir, user, repo, tree, callback) {
  * Serve a file from a repo
  */
 function serveFile(fileToServe, res) {
-	if(!utils.isFile(fileToServe)) {
+	if(!isFile(fileToServe)) {
 		return res.send(404, 'File not found');
 	}
 
@@ -107,12 +108,12 @@ app.get('/:user/:repo/:tree/*', function(req, res) {
 	var fileToServe = path.join(userDir, repo, filePath);
 
 	// Check if the repo exists
-	if(utils.isDir(repoDir)) {
+	if(isDir(repoDir)) {
 		return serveFile(fileToServe, res);
 	}
 
 	// Create the user directory
-	utils.ensureDir(userDir);
+	ensureDir(userDir);
 
 	cloneRepo(userDir, user, repo, tree, function(err) {
 		if(err) {
@@ -131,7 +132,7 @@ app.get('/:user/:repo/:tree/*', function(req, res) {
 var server;
 
 exports.start = function () {
-	utils.ensureDir(componentsPath);
+	ensureDir(componentsPath);
 	server = app.listen(0);
 };
 

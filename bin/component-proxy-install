@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var app = require('../lib');
+var app = require('../');
 var spawn = require('child_process').spawn;
 
 // Run the server
