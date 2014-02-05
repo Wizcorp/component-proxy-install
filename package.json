@@ -1,5 +1,5 @@
 {
-  "name": "comopnent-proxy-install",
+  "name": "component-proxy-install",
   "description": "Proxy installs from ssh component",
   "version": "0.0.4",
   "dependencies": {
