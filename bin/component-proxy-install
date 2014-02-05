@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var app = require('../lib/app');
+var app = require('../lib');
 var spawn = require('child_process').spawn;
 
 // Run the server
@@ -25,6 +25,6 @@ installProc.stderr.on('data', function(data) {
 installProc.on('close', function(code) {
   console.log('Stopping component proxy');
   app.stop(function () {
-  	process.exit(code);
+    process.exit(code);
   });
 });
