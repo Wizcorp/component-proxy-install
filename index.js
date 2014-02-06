@@ -42,6 +42,7 @@ function cloneRepo(userDir, user, repo, tree, callback) {
 	console.log('     cloning : %s/%s', user, repo);
 	// Clone the repo or fail
 	var command = util.format(CLONE_COMMAND, user, repo);
+
 	exec(command, { cwd: userDir }, function(err, stdout, stderr) {
 		if(err) {
 			if(stderr.indexOf('Repository not found.') !== -1) {
@@ -61,6 +62,7 @@ function cloneRepo(userDir, user, repo, tree, callback) {
 function checkoutRepoTree(userDir, user, repo, tree, callback) {
 	var repoDir = path.resolve(userDir, repo);
 	var command = util.format(CHECKOUT_COMMAND, tree);
+
 	exec(command, { cwd: repoDir }, function(err, stdout, stderr) {
 		if(err) {
 			if(stderr.indexOf('did not match any file(s)') !== -1) {
@@ -117,10 +119,10 @@ app.get('/:user/:repo/:tree/*', function(req, res) {
 
 	cloneRepo(userDir, user, repo, tree, function(err) {
 		if(err) {
-			console.error(err);
 			if(err.name == 'NotFound') {
 				return res.send(404, 'Repo not found');
 			}
+			console.error(err);
 			return res.send(500, 'Internal Server Error');
 		}
 		// Serve the requested file

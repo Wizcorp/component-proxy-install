@@ -9,7 +9,7 @@
 		"rimraf": "*"
 	},
 	"peerDependencies": {
-		"component": "*"
+		"component": "<=0.18.0"
 	},
 	"devDependencies": {
 		"jshint": "*"
