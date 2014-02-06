@@ -1,27 +1,33 @@
 {
-  "name": "component-proxy-install",
-  "description": "Proxy installs from ssh component",
-  "version": "0.0.4",
-  "dependencies": {
-    "component": "*",
-    "express": "*",
-    "mime": "*",
-    "mkdirp": "*",
-    "rimraf": "*"
-  },
-  "devDependencies": {
-    "jshint": "*"
-  },
-  "keywords": [
-    "component",
-    "install"
-  ],
-  "author": "Reuven V. Gonzales <reuven@virtru.com>",
-  "preferGlobal": true,
-  "bin": {
-    "component-proxy-install": "./bin/component-proxy-install"
-  },
-  "engines": {
-    "node": ">= 0.8.22"
-  }
+	"name": "component-proxy-install",
+	"description": "Proxy installs from ssh component",
+	"version": "0.0.5",
+	"dependencies": {
+		"express": "*",
+		"mime": "*",
+		"mkdirp": "*",
+		"rimraf": "*"
+	},
+	"peerDependencies": {
+		"component": "*"
+	},
+	"devDependencies": {
+		"jshint": "*"
+	},
+	"keywords": [
+		"component",
+		"install"
+	],
+	"author": "Reuven V. Gonzales <reuven@virtru.com>",
+	"preferGlobal": true,
+	"bin": {
+		"component-proxy-install": "./bin/component-proxy-install"
+	},
+	"engines": {
+		"node": ">= 0.8.22"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Wizcorp/component-proxy-install.git"
+	}
 }
