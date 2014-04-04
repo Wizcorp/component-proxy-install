@@ -1,7 +1,7 @@
 {
 	"name": "component-proxy-install",
 	"description": "Proxy installs from ssh component",
-	"version": "0.0.5",
+	"version": "0.1.0",
 	"dependencies": {
 		"express": "*",
 		"mime": "*",
@@ -18,13 +18,12 @@
 		"component",
 		"install"
 	],
-	"author": "Reuven V. Gonzales <reuven@virtru.com>",
 	"preferGlobal": true,
 	"bin": {
 		"component-proxy-install": "./bin/component-proxy-install"
 	},
 	"engines": {
-		"node": ">= 0.8.22"
+		"node": ">=0.8.22"
 	},
 	"repository": {
 		"type": "git",
