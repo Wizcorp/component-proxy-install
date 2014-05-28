@@ -8,7 +8,7 @@ app.start();
 
 var port = app.getPort();
 
-var installArgs = [ 'install', '-r', 'https://raw.github.com,http://127.0.0.1:' + port ];
+var installArgs = [ 'install', '-r', 'https://raw.githubusercontent.com,http://127.0.0.1:' + port ];
 installArgs = installArgs.concat(process.argv.slice(2));
 
 // Run the install process
