@@ -2,6 +2,9 @@
 var app = require('../');
 var spawn = require('child_process').spawn;
 
+// Get the path to the component binary that is gonna be used
+var componentBinary = process.argv[2];
+
 // Run the server
 console.log('Starting component proxy');
 app.start();
@@ -9,10 +12,10 @@ app.start();
 var port = app.getPort();
 
 var installArgs = [ 'install', '-r', 'https://raw.githubusercontent.com,http://127.0.0.1:' + port ];
-installArgs = installArgs.concat(process.argv.slice(2));
+installArgs = installArgs.concat(process.argv.slice(3));
 
 // Run the install process
-var installProc = spawn('./node_modules/.bin/component', installArgs);
+var installProc = spawn(componentBinary, installArgs);
 
 installProc.stdout.on('data', function(data) {
   process.stdout.write('' + data);

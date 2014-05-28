@@ -12,7 +12,7 @@ Using
 Usage is almost identical to ``component install`` just with a different
 invocation. In order to use run the following command::
 
-    component proxy-install
+    component-proxy-install PATH_TO_YOUR_COMPONENT_BINARY
 
 Any options you pass will be passed to ``component install``
 
