@@ -1,13 +1,20 @@
 #!/usr/bin/env node
 var app = require('../');
 var spawn = require('child_process').spawn;
+var path = require('path');
 
-// Get the path of the loaded file for the `component` module
-var componentPath = require.resolve('component');
-// Now, we must have a string like /path/to/the/component/node_modules/probably/some/directories/index.js
-// We want to get the deeper `node_modules` directory and access to the `.bin` directory it contains
-var componentPathSeeker = new RegExp('(.*/node_modules/).*?');
-var componentBinaryPath = componentPathSeeker.exec(componentPath)[1] + '.bin/component';
+// Get the path of the `component` module
+var componentPath = path.resolve(require.resolve('component'), '../');
+
+// We only support Component v0.18.0. Let's make sure we are about to use the right one
+var componentPackageInfo = require(path.resolve(componentPath, 'package.json'));
+if (componentPackageInfo.version !== '0.18.0') {
+	console.error('We only support the version 0.18.0 of Component. Yours is currently ' + componentPackageInfo.version);
+	process.exit(1);
+}
+
+// Component binary
+var componentBinaryPath = path.resolve(componentPath, 'bin/component');
 
 // Run the server
 console.log('Starting component proxy');
