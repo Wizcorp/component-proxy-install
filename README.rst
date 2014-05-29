@@ -22,4 +22,4 @@ How it works
 It works by checking out all of your repos to a temporary directory
 and serving those using a simple express app.
 
-It serves the repos using the same interface as ``raw.github.com``.
+It serves the repos using the same interface as ``raw.githubusercontent.com``.
