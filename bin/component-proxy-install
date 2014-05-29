@@ -7,8 +7,18 @@ console.log('Starting component proxy');
 app.start();
 
 var port = app.getPort();
+var remotes = 'https://raw.githubusercontent.com,http://127.0.0.1:' + port;
 
-var installArgs = [ 'install', '-r', 'https://raw.githubusercontent.com,http://127.0.0.1:' + port ];
+// Look for remote options in the passed arguments
+for (var i = 2; i < process.argv.length; i = i + 1) {
+	if (process.argv[i] === '-r' || process.argv[i] === '--remotes') {
+		remotes += (',' + process.argv[i + 1]);
+		process.argv.splice(i, 2);
+		i = i - 1;
+	}
+}
+
+var installArgs = [ 'install', '-r', remotes];
 installArgs = installArgs.concat(process.argv.slice(2));
 
 // Run the install process
