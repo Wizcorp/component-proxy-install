@@ -46,9 +46,7 @@ function cloneRepo(userDir, user, repo, tree, callback) {
 	exec(command, { cwd: userDir }, function(err, stdout, stderr) {
 		if(err) {
 			if(stderr.indexOf('Repository not found.') !== -1) {
-				var notFound = new Error('Repository not found');
-				notFound.name = 'NotFound';
-				return callback(notFound);
+				return callback('RepoNotFound');
 			}
 			return callback(err);
 		}
@@ -66,9 +64,7 @@ function checkoutRepoTree(userDir, user, repo, tree, callback) {
 	exec(command, { cwd: repoDir }, function(err, stdout, stderr) {
 		if(err) {
 			if(stderr.indexOf('did not match any file(s)') !== -1) {
-				var notFound = new Error('Tree not found');
-				notFound.name = 'NotFound';
-				return callback(notFound);
+				return callback('RepoNotFound');
 			}
 			return callback(err);
 		}
@@ -81,17 +77,17 @@ function checkoutRepoTree(userDir, user, repo, tree, callback) {
  */
 function serveFile(fileToServe, res) {
 	if(!isFile(fileToServe)) {
-		return res.send(404, 'File not found');
+		return res.status(404).send('File not found');
 	}
 
 	res.type(mime.lookup(fileToServe));
 
 	fs.readFile(fileToServe, function (err, data) {
 		if (err) {
-			return res.send(404, 'File not found');
+			return res.status(404).send('File not found');
 		}
 
-		res.send(200, data);
+		res.status(200).send(data);
 	});
 }
 
@@ -119,11 +115,11 @@ app.get('/:user/:repo/:tree/*', function(req, res) {
 
 	cloneRepo(userDir, user, repo, tree, function(err) {
 		if(err) {
-			if(err.name == 'NotFound') {
-				return res.send(404, 'Repo not found');
+			if(err === 'RepoNotFound') {
+				return res.status(404).send('File not found');
 			}
 			console.error(err);
-			return res.send(500, 'Internal Server Error');
+			return res.status(500).send('Internal Server Error: ' + err);
 		}
 		// Serve the requested file
 

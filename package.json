@@ -1,9 +1,9 @@
 {
 	"name": "component-proxy-install",
 	"description": "Proxy installs from ssh component",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"dependencies": {
-		"express": "*",
+		"express": ">=4.7.0",
 		"mime": "*",
 		"mkdirp": "*",
 		"rimraf": "*"
