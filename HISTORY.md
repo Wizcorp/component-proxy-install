@@ -1,5 +1,9 @@
 #component-proxy-install Changelog
 
+##v0.4.1
+* Removed version requirement check for component.
+* Require the correct component.
+
 ##v0.4.0
 * Switched to our own fork of component v0.18.0 called [component-x](https://github.com/wizcorp/component-x).
 

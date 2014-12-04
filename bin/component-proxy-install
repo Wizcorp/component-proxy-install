@@ -4,14 +4,7 @@ var spawn = require('child_process').spawn;
 var path = require('path');
 
 // Get the path of the `component` module
-var componentPath = path.resolve(require.resolve('component'), '../');
-
-// We only support Component v0.18.0. Let's make sure we are about to use the right one
-var componentPackageInfo = require(path.resolve(componentPath, 'package.json'));
-if (componentPackageInfo.version !== '0.18.0') {
-	console.error('We only support the version 0.18.0 of Component. Yours is currently ' + componentPackageInfo.version);
-	process.exit(1);
-}
+var componentPath = path.resolve(require.resolve('component-x'), '../');
 
 // Component binary
 var componentBinaryPath = path.resolve(componentPath, 'bin/component');
