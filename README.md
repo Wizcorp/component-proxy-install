@@ -4,7 +4,7 @@
 
 This is a hack to allow for private repos to be installed without exposing any
 passwords on your local system. It will utilize ssh git checkouts on your
-system in order to make it work. It only works with github and component 0.18.0.
+system in order to make it work. It only works with github.
 
 ##Using
 

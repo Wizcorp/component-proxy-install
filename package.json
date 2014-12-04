@@ -1,7 +1,7 @@
 {
 	"name": "component-proxy-install",
 	"description": "Proxy installs from ssh component",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"dependencies": {
 		"express": ">=4.7.0",
 		"mime": "*",
@@ -9,7 +9,7 @@
 		"rimraf": "*"
 	},
 	"peerDependencies": {
-		"component": "<=0.18.0"
+		"component-x": "~0.1.0"
 	},
 	"devDependencies": {
 		"jshint": "*"
